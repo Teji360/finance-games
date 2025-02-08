@@ -1,7 +1,5 @@
-// components/Question.tsx
-
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
 
 type QuestionProps = {
   question: string;
@@ -11,11 +9,12 @@ type QuestionProps = {
 };
 
 const Question: React.FC<QuestionProps> = ({ question, stockSymbol, correctAnswer, onAnswer }) => {
-  const [userGuess, setUserGuess] = useState<number | "">("");
+  const [userGuess, setUserGuess] = useState<string>(""); // Store user input as string
 
   const handleSubmit = () => {
-    if (userGuess !== "") {
-      onAnswer(Number(userGuess));
+    const guess = parseFloat(userGuess); // Convert the input to a number
+    if (!isNaN(guess)) {
+      onAnswer(guess); // Call onAnswer with the numeric value
     }
   };
 
@@ -23,12 +22,14 @@ const Question: React.FC<QuestionProps> = ({ question, stockSymbol, correctAnswe
     <div className="flex flex-col">
       <h2>{question}</h2>
       <input
-        type="number"
+        type="text" // Change input type to "text" to avoid the leading zero issue
         value={userGuess}
-        onChange={(e) => setUserGuess(Number(e.target.value))}
+        onChange={(e) => setUserGuess(e.target.value.replace(/^0+/, ""))} // Remove leading zeros on input change
         placeholder={`Guess the stock price of ${stockSymbol}`}
       />
-      <Button onClick={handleSubmit} className="m-auto bg-green-500">Submit</Button>
+      <Button onClick={handleSubmit} className="m-auto bg-green-500">
+        Submit
+      </Button>
     </div>
   );
 };
