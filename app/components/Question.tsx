@@ -20,13 +20,15 @@ const Question: React.FC<QuestionProps> = ({ question, stockSymbol, correctAnswe
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col space-y-2">
 
-    
+            
             <h2>{question}</h2>
             <input
+            
                 type="text" // Change input type to "text" to avoid the leading zero issue
                 value={userGuess}
+                className="border shadow rounded-sm h-10 p-2"
                 onChange={(e) => setUserGuess(e.target.value.replace(/^0+/, ""))} // Remove leading zeros on input change
                 placeholder={`Guess the stock price of ${stockSymbol}`}
             />
