@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Logo from "../public/Logo.png"
-import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 
 export default function Home() {

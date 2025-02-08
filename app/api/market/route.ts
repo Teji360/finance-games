@@ -14,11 +14,18 @@ export async function GET(request: Request) {
     const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`);
     const data = await res.json();
 
-    // If the API call was successful, return the stock price
-    if (data && data.c !== undefined) {
-      return NextResponse.json({ price: data.c });
+    // Fetch the company details (name)
+    const companyRes = await fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`);
+    const companyData = await companyRes.json();
+
+    // If both API calls were successful, return the stock price and company name
+    if (data && data.c !== undefined && companyData && companyData.name) {
+      return NextResponse.json({
+        price: data.c,
+        name: companyData.name, // Include the company name in the response
+      });
     } else {
-      return NextResponse.json({ error: "Failed to fetch market data" }, { status: 500 });
+      return NextResponse.json({ error: "Failed to fetch market data or company info" }, { status: 500 });
     }
   } catch (error) {
     console.error("Error fetching market data:", error);
