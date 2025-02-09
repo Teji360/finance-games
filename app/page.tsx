@@ -5,7 +5,8 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="grid  items-center justify-items-center min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="h-full grid items-center justify-items-center min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+             
       <Image src={Logo} height={200} width={400} alt="" />
 
       <div>

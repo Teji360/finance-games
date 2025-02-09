@@ -108,7 +108,7 @@ export default function GamePage() {
 
     return (
         <GameLayout>
-            <div className="p-8">
+            <div className="p-8 h-full">
                 <Image src={Logo} height={200} width={400} alt="Market Question" />
 
                 <Link href="/">
