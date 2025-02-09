@@ -26,8 +26,7 @@ const companySymbols = [
     { symbol: 'AMD', imageUrl: "https://1000logos.net/wp-content/uploads/2020/05/AMD-Logo-500x313.png" },
     { symbol: 'LULU', imageUrl: "https://1000logos.net/wp-content/uploads/2017/08/Lululemon-Logo-500x414.png" },
     { symbol: 'TSM', imageUrl: "https://1000logos.net/wp-content/uploads/2021/08/TSMC-Logo-500x315.png" },
-
-    // Add more symbols with their corresponding logos
+    //TODO probably add more logos later
 ];
 
 
@@ -44,8 +43,9 @@ export default function GamePage() {
     const [marketData, setMarketData] = useState<MarketData | null>(null);
     const [feedback, setFeedback] = useState<string>("");
     const [questionsAnswered, setQuestionsAnswered] = useState<number>(0); // Track number of questions answered
-
+    const [showLearnMoreLink, setShowLearnMoreLink] = useState(false); // New state for the Learn More link
     const router = useRouter();
+
 
 
     // Fetch market data using a dynamic symbol
@@ -82,8 +82,8 @@ export default function GamePage() {
         const randomSymbol = companySymbols[Math.floor(Math.random() * companySymbols.length)].symbol;
         fetchMarketData(randomSymbol);
     }, []); // This only runs on mount to fetch initial data
- 
- 
+
+
     // Handle the answer submission from the Question component
     const handleAnswer = (userGuess: number) => {
         if (marketData) {
@@ -99,11 +99,18 @@ export default function GamePage() {
             setQuestionsAnswered(questionsAnswered + 1); // Increment the number of questions answered
             setFeedback(`Correct answer: ${marketData.answer}. You earned ${points} points!`);
 
-          
+            if (points == 0) {
+                handleLearnMore();
+            }
+
         }
 
-        
+
     };
+
+    const handleLearnMore = () => {
+        setShowLearnMoreLink(true);
+    }
 
 
     return (
@@ -122,7 +129,7 @@ export default function GamePage() {
                         <>
                             <div className="flex items-center space-x-4 w-full justify-center">
                                 <img src={marketData.imageUrl} alt={marketData.name} width={200} height={400} />
-                                
+
                             </div>
 
                             <Question
@@ -132,6 +139,15 @@ export default function GamePage() {
                                 onAnswer={handleAnswer} // Pass the answer handler to Question component
                             />
                             {feedback && <p className="mt-2">{feedback}</p>}
+                            {/* This might not work as expected */}
+                            {showLearnMoreLink && (
+                                <div>
+                                    <p>Looks like you earned no points. Learn more about the company:</p>
+                                    <a href={`https://www.finnhub.io/api/v1/company-news?symbol=YOUR_COMPANY_SYMBOL&token=${process.env.FINNHUB_API_KEY}`} target="_blank" rel="noopener noreferrer">
+                                        View Company News
+                                    </a>
+                                </div>
+                            )}
                         </>
                     ) : (
                         <p>Loading market data...</p>

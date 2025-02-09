@@ -10,7 +10,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Missing 'symbol' query parameter" }, { status: 400 });
     }
 
-    // Fetch the market data for the dynamically passed symbol
+    // Fetch the market data (stock price) for the dynamically passed symbol
     const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`);
     const data = await res.json();
 
@@ -18,17 +18,22 @@ export async function GET(request: Request) {
     const companyRes = await fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`);
     const companyData = await companyRes.json();
 
-    // If both API calls were successful, return the stock price and company name
-    if (data && data.c !== undefined && companyData && companyData.name) {
+    // Fetch the market news for the given symbol
+    const newsRes = await fetch(`https://finnhub.io/api/v1/company-news?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`);
+    const newsData = await newsRes.json();
+
+    // If all API calls were successful, return the stock price, company name, and news
+    if (data && data.c !== undefined && companyData && companyData.name && newsData) {
       return NextResponse.json({
-        price: data.c,
-        name: companyData.name, // Include the company name in the response
+        price: data.c,             // Stock price
+        name: companyData.name,    // Company name
+        news: newsData,            // Market news
       });
     } else {
-      return NextResponse.json({ error: "Failed to fetch market data or company info" }, { status: 500 });
+      return NextResponse.json({ error: "Failed to fetch market data, company info, or news" }, { status: 500 });
     }
   } catch (error) {
-    console.error("Error fetching market data:", error);
-    return NextResponse.json({ error: "Failed to fetch market data" }, { status: 500 });
+    console.error("Error fetching data:", error);
+    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
   }
 }
