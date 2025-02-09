@@ -66,7 +66,8 @@ export default function GamePage() {
     const handleAnswer = (userGuess: number) => {
         if (marketData) {
             const difference = Math.abs(userGuess - marketData.answer);
-            let points = Math.max(0, 50 - difference); // Points based on how close the guess is
+            const roundedDifference = Math.floor(difference);
+            let points = Math.max(0, 50 - roundedDifference); // Points based on how close the guess is
 
             setPointsNeeded(pointsNeeded - points); // Update points
             setFeedback(`Correct answer: ${marketData.answer}. You earned ${points} points!`);

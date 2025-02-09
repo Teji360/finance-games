@@ -7,7 +7,12 @@ export default function Home() {
   return (
     <div className="grid  items-center justify-items-center min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <Image src={Logo} height={200} width={400} alt="" />
-      <h1 className="text-2xl font-sans font-semibold">Welcome To Finance Games!</h1>
+
+      <div>
+        <h1 className="text-2xl font-sans font-semibold">Welcome To Finance Games!</h1>
+        <h3 className="font-sans">Guess company stock and notable investors!</h3>
+      </div>
+      
       <div className="flex space-x-4">
         <Link href = "/difficulty">
           <Button>
