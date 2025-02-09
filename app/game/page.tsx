@@ -83,7 +83,7 @@ export default function GamePage() {
         fetchMarketData(randomSymbol);
     }, []); // This only runs on mount to fetch initial data
  
-
+ 
     // Handle the answer submission from the Question component
     const handleAnswer = (userGuess: number) => {
         if (marketData) {

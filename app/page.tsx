@@ -1,9 +1,17 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Logo from "../public/Logo.png"
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 
 export default function Home() {
+
+  const showToast = () => {
+    toast.error("Feature not yet supported!");
+  }
+
   return (
     <div className="h-full grid items-center justify-items-center min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
              
@@ -21,8 +29,8 @@ export default function Home() {
           </Button>
         </Link>  
 
-        <Button className="bg-red-500">
-            MultiPlayer
+        <Button className="bg-red-500" onClick={showToast}>
+            Multi-Player
         </Button>
       </div>
       
