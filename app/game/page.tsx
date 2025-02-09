@@ -139,14 +139,19 @@ export default function GamePage() {
                                 onAnswer={handleAnswer} // Pass the answer handler to Question component
                             />
                             {feedback && <p className="mt-2">{feedback}</p>}
-                            {/* This might not work as expected */}
+                            {/* TODO probably fix this later? */}
                             {showLearnMoreLink && (
                                 <div>
                                     <p>Looks like you earned no points. Learn more about the company:</p>
-                                    <a href={`https://www.finnhub.io/api/v1/company-news?symbol=YOUR_COMPANY_SYMBOL&token=${process.env.FINNHUB_API_KEY}`} target="_blank" rel="noopener noreferrer">
-                                        View Company News
-                                    </a>
+                                        <Button>
+                                            View Company News
+                                        </Button>                                    
+                                        
+                                    
                                 </div>
+
+
+                                
                             )}
                         </>
                     ) : (
@@ -157,6 +162,7 @@ export default function GamePage() {
                         onClick={() => {
                             const randomSymbol = companySymbols[Math.floor(Math.random() * companySymbols.length)].symbol;
                             fetchMarketData(randomSymbol); // Next question logic
+                            setShowLearnMoreLink(false);
                         }}
                         className="bg-gray-500 text-white px-4 py-2 m-auto"
                     >

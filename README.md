@@ -27,7 +27,7 @@ We ran into a TON. What API's would we use, is it fun? how do we make the websit
 ## Accomplishments that we're proud of
 Proud of trying my best honestly 
 ## What we learned
-
+I have learned to preserve throughout this project and that giving up doesn't really do me any good in the future
 ## What's next for TruistGames
 Probably make this a game where people can compete with each other to guess 
 who is closes to the mark make it multiplayer

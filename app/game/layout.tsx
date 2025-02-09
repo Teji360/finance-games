@@ -1,8 +1,6 @@
-
 import { Geist, Geist_Mono } from "next/font/google";
 import "./../globals.css";
 import { GameProvider } from "@/context/GameContext";
-import Header from "../components/Header";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
@@ -15,17 +13,12 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function GameLayout({ children }: { children: React.ReactNode }) {
     return (
-        <>
-            <Toaster position="top-center" />
-            <GameProvider>
-                {children}
-            </GameProvider>
-        </>
+        <html lang="en">
+            <body className={`${geistSans.variable} ${geistMono.variable}`}>
+                <GameProvider>{children}</GameProvider>
+            </body>
+        </html>
     );
 }

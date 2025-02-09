@@ -8,10 +8,6 @@ import { toast } from "react-hot-toast";
 
 export default function Home() {
 
-  const showToast = () => {
-    toast.error("Feature not yet supported!");
-  }
-
   return (
     <div className="h-full grid items-center justify-items-center min-h-screen p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
              
@@ -29,7 +25,7 @@ export default function Home() {
           </Button>
         </Link>  
 
-        <Button className="bg-red-500" onClick={showToast}>
+        <Button className="bg-red-500">
             Multi-Player
         </Button>
       </div>

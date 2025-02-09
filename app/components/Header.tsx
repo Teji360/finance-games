@@ -10,10 +10,6 @@ const Header = () => {
         <Link href="/">
             <Image src={Logo} height={300} width={300} alt="main-logo" />
         </Link>
-
-        <div>
-
-        </div>
     </header>
   )
 }
